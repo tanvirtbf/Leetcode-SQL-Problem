@@ -1,3 +1,5 @@
-SELECT player_id, MIN(event_date) AS first_login
-FROM Activity
-GROUP BY player_id;
+-- Test korar jonno query
+SELECT seller_id, SUM(price) as total_sales
+FROM Sales
+GROUP BY seller_id
+ORDER BY total_sales DESC;
