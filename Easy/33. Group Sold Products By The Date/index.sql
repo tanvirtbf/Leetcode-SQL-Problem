@@ -1,4 +1,2 @@
-select e.name , eu.unique_id from 
-employees e 
-left join employeeuni eu
-on e.id=eu.id;
+select sell_date, count(distinct product) as num_sold, group_concat(distinct product) as products 
+from activities group by sell_date;
