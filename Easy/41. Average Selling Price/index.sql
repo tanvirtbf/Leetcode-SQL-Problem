@@ -1,11 +1,15 @@
-select 
-    s.student_id,
-    s.student_name,
-    sub.subject_name,
-    count(e.student_id) as attended_exams
-from students s
-cross join subjects sub
-left join examinations e
-on s.student_id=e.student_id AND sub.subject_name=e.subject_name
-group by s.student_id, s.student_name, sub.subject_name
-order by s.student_id, s.student_name;
+SELECT
+  Prices.product_id,
+  IFNULL(
+    ROUND(
+      SUM(Prices.price * UnitsSold.units) / SUM(UnitsSold.units),
+      2
+    ),
+    0
+  ) AS average_price
+FROM Prices
+LEFT JOIN UnitsSold
+  ON (
+    Prices.product_id = UnitsSold.product_id
+    AND UnitsSold.purchase_date BETWEEN Prices.start_date AND Prices.end_date)
+GROUP BY 1;
