@@ -1,4 +1,5 @@
-select user_id, max(time_stamp) as last_stamp 
-from logins
-where year(time_stamp) = 2020
-group by user_id;
+SELECT name, IFNULL(SUM(distance),0) AS travelled_distance
+FROM Users u
+LEFT JOIN Rides r ON u.id = r.user_id
+GROUP BY u.id
+ORDER BY travelled_distance DESC, name ASC;
