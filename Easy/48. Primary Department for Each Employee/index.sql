@@ -1,15 +1,17 @@
 SELECT 
-    e1.employee_id, 
-    e1.name, 
-    COUNT(e2.employee_id) AS reports_count, 
-    ROUND(AVG(e2.age), 0) AS average_age
+    employee_id, 
+    department_id
 FROM 
-    Employees e1
-JOIN 
-    Employees e2
-ON 
-    e1.employee_id = e2.reports_to
-GROUP BY 
-    e1.employee_id, e1.name
-ORDER BY 
-    e1.employee_id;
+    Employee
+WHERE 
+    primary_flag = 'Y'
+    OR employee_id IN (
+        SELECT 
+            employee_id
+        FROM 
+            Employee
+        GROUP BY 
+            employee_id
+        HAVING 
+            COUNT(department_id) = 1
+    );
